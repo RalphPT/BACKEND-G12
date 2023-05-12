@@ -13,4 +13,4 @@ Toda la información que necesites la prodrás encontrar acá, el repositorio se
 - Semana 07: NO DISPONIBLE
 - Semana 08: NO DISPONIBLE
 - Semana 09: NO DISPONIBLE
-- Semana 10: NO DISPONIBLE
+- Semana 10: NO DISPONIBLEE
