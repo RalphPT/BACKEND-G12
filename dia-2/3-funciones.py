@@ -57,3 +57,39 @@ def usuarios(**params):
 usuarios(nombre='Eduardo', edad=30, sexo='Masculino', nacionalidad='peruano')
 
 usuarios(direccion='Las Begonias 113', apellido='Juarez', hobbies=['Jugar CS-GO', 'Montar Bici', 'Preparar jugos'])
+
+
+# Tenemos la función llamada calcular promedio en el cual se pueden ingresar N numeros y se necesita retornar el promedio de esos numeros
+# Ejemplo: 10, 20, 50, 55, 70 > 41
+# len(...)
+
+def calcular(*numeros):
+    if len(numeros) == 0:
+        return 'debe ingresar notas'
+    else:
+        suma = sum(numeros)
+        return suma / len(numeros)
+    
+promedio = calcular(18, 15, 19, 20, 18)
+print(promedio)
+
+print('-----------------------------')
+def calcular(*numeros):
+    cantidad = len(numeros)
+    total = 0
+    for numero in numeros:
+        total += numero #total = total + numero
+    resultado = total / cantidad
+    return resultado
+
+print(calcular(10, 20, 50, 55, 70))
+#CORREGIR!!!!
+def calcular(*numeros):
+    cantidad = sum(numeros)
+    #total = 0
+    #for numero in numeros:
+        #total += numero #total = total + numero
+    resultado = numeros / cantidad
+    return resultado
+
+print(calcular(10, 20, 50, 55, 70))

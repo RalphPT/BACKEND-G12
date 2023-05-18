@@ -47,3 +47,14 @@ for numero in numeros:
         
 print("Hay {} números menores de 15" .format(menores))
 print(f"Hay {mayores} numeros mayores que 15")
+
+n = 15
+if n % 2 != 0:
+    print("weird")
+else:
+    if 2 <= n <= 5:
+        print("Not Weird")
+    elif 6 <= n <= 20:
+        print("Weird")
+    elif n > 20:
+        print("not Weird")
