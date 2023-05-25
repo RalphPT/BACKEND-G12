@@ -97,9 +97,10 @@ SELECT * FROM direcciones WHERE referencia IS NOT NULL;
 
 -- Mostrar todas las direcciones que sean Av o Calle y que no tengan referencias
 -- Si no le colocamos los parentesis la comparativa del OR será entre la AV y la CALLE y la REFERENCIA cosa que malogrará el resultado (inexacto)
-SELECT * FROM direcciones WHERE calle LIKE 'Av%' OR calle LIKE 'Calle%' AND referencia IS NULL;
+SELECT * FROM direcciones WHERE calle LIKE 'Av%' OR calle LIKE 'Calle%' AND referencia IS NULL; -- INCORRECTO
 
-SELECT * FROM direcciones WHERE (calle LIKE 'Av%' OR calle LIKE 'Calle%') AND referencia IS NULL;
+SELECT * FROM direcciones WHERE (calle LIKE 'Av%' OR calle LIKE 'Calle%') AND referencia IS NULL; -- CORECTO
+
 
 -- INNER JOIN (Intersección) de nuestros alumnos con sus direcciones
 SELECT * FROM direcciones
