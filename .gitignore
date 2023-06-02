@@ -1,0 +1,6 @@
+# ignorara todas las carpetas cuyo nombre empiecen con "entorno_"
+entorno_*
+# python cache
+*.pyc
+# 
+.env
