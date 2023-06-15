@@ -5,3 +5,7 @@ python3.11 manage.py runserver > iniciara el servidor de django
 python3.11 manage.py showmigrations > mostrara todas las migraciones en nuestro proyecto y con [x] las que ya se ejecutaron en la bd
 
 python3.11 manage.py startapp NOMBRE_APP > crea una nueva aplicacion en el proyecto (para este ejemplo se uso "gestion")
+
+
+python3.11 manage.py makemigrations gestion -n "creacion_de_tablas" > creacion de migraciones
+pip3.11 install pillow
