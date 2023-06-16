@@ -6,6 +6,7 @@ from django.http import HttpRequest
 from rest_framework.views import APIView
 from .serializers import CategoriaSerializer
 from .models import Categoria
+from rest_framework import status
 # SE USA RESPONSE DEBIDO AL ERROR EN EL POSTMAN
 #AssertionError at /
 #Expected a `Response`, `HttpResponse` or `HttpStreamingResponse` to be returned from the view, but received a `<class 'dict'>`
@@ -76,4 +77,70 @@ class CategoriaController(APIView):
 
         return Response(data ={
             'content': serializador.data
+        })
+    def put(self, request: Request | HttpRequest, id: int):
+        categoriaEncontrada = Categoria.objects.filter(id=id).first()
+        
+        if not categoriaEncontrada:
+            return Response(data ={
+                'message': 'Categoria no existe'
+            })
+        
+        serializador = CategoriaSerializer(data=request.data)
+        try:
+            serializador.is_valid(raise_exception=True)
+            dataValidada = serializador.validated_data
+
+            serializador.update(instance=categoriaEncontrada, validated_data=dataValidada)
+
+            return Response(data={
+                'message': 'Categoria actualizada exitosamente',
+                'content': serializador.data
+            })
+        
+        except Exception as err:
+            return Response(data ={
+                'message': 'Error al actualizar la categoria',
+                'content': err.args
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+    def delete(self, request: Request | HttpRequest, id : int):
+        categoriaEncontrada = Categoria.objects.filter(id = id).first()
+
+        if not categoriaEncontrada:
+            return Response(data ={
+                'message': 'Categoria no existe'
+            })
+        
+        resultado = Categoria.objects.filter(id=id).delete()
+
+        print(resultado)
+
+        return Response(data=None, status=status.HTTP_204_NO_CONTENT)
+    
+@api_view(['POST'])
+def alternarEstadoCategoria(request, id):
+    categoriaEncontrada = Categoria.objects.filter(id = id).first()
+
+    if not categoriaEncontrada:
+        return Response(data ={
+            'message': 'Categoria no existe'
+        })
+    
+    categoriaEncontrada.habilitado = not categoriaEncontrada.habilitado
+
+    # sobrescribe la informacion cambiada
+    categoriaEncontrada.save()
+
+    # RESULTADO_VERDADERO if CONDICION else RESULTADO_FALSO
+    mensaje = 'habilitado' if categoriaEncontrada.habilitado == True else 'deshabilitado'
+
+    return Response(data ={
+        'message': 'Categoria '+mensaje+' correctamente'
+    })
+
+class LibrosController(APIView):
+    def post (self, request: Request | HttpRequest):
+        return Response(data={
+            'message': 'Libro creado exitosamente'
         })
