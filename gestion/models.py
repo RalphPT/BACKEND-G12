@@ -7,6 +7,7 @@ class Categoria(models.Model):
     nombre = models.TextField(null=False, unique=True)
     estante = models.TextField()
     piso = models.TextField()
+    habilitado = models.BooleanField(default=True)
 
     class Meta:
         #https://docs.djangoproject.com/en/4.2/ref/models/options/
@@ -70,3 +71,9 @@ class Autor(models.Model):
         db_table = 'autores'
         unique_together = ['nombre', 'nacionalidad']
 
+# si no utilizacemos la clase ManyToManyField lo tendiramos que hacer de esta manera
+# class LibroAutor(models.Model):
+#     autorId = ...
+#     libroId = ...
+#     class Meta:
+#         db_table = 'libros_autores'

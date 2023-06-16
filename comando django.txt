@@ -6,6 +6,15 @@ python3.11 manage.py showmigrations > mostrara todas las migraciones en nuestro 
 
 python3.11 manage.py startapp NOMBRE_APP > crea una nueva aplicacion en el proyecto (para este ejemplo se uso "gestion")
 
-
-python3.11 manage.py makemigrations gestion -n "creacion_de_tablas" > creacion de migraciones
+python3.11 manage.py makemigrations NOMBRE_APP -n "NOMBRE"
+python3.11 manage.py makemigrations gestion -n "creacion_de_tablas" > crea la migracion de la aplicacion indicada
 pip3.11 install pillow
+python manage.py migrate
+
+python3.11 manage.py sqlmigrate NOMBRE_APP NUM_MIGRACION > muestra el codigo SQL de la migracion
+
+python3.11 manage.py dbshell > conecta a la base de datos por la terminal
+
+
+PSQL para BD de postgres
+https://www.geeksforgeeks.org/postgresql-psql-commands/
