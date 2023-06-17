@@ -18,3 +18,9 @@ python3.11 manage.py dbshell > conecta a la base de datos por la terminal
 
 PSQL para BD de postgres
 https://www.geeksforgeeks.org/postgresql-psql-commands/
+
+
+
+
+link django rest framework se utilizó en este proyecto
+https://drf-yasg.readthedocs.io/en/stable/

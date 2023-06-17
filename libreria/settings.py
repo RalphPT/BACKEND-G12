@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gestion', #Agregaro para hacer migraciones
     'rest_framework',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
