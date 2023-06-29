@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-8+g4$-7i09k8ki3g=x@9tuggkq_h+#nx56^+e57ls+!^w$a)&m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['abarrotes-api-yode.onrender.com', '127.0.0.1']
 
 
 # Application definition
