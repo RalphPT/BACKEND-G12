@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-8+g4$-7i09k8ki3g=x@9tuggkq_h+#nx56^+e57ls+!^w$a)&m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['abarrotes-api-yode.onrender.com', '127.0.0.1']
 
@@ -46,6 +46,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # https://whitenoise.readthedocs.io/en/latest/
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -166,3 +168,6 @@ SWAGGER_SETTINGS = {
         }
     }
 }
+# python manage.py collectstatic
+# Es el lugar donde se almacenaran los archivos estaticos que utilizan Django, DRF, Swagger, entre otros
+STATIC_ROOT = BASE_DIR / 'archivos'
