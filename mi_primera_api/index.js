@@ -27,7 +27,7 @@ console.log(resultado === false && 'Otra cosa')
 // si la primera expresion es verdad o false se quedará ahí, pero si es false o es null o undefined pasara a la segunda
 console.log(0 || 'Otra cosa')
 
-// operador Nullish coalscing operator ??
+// operador Nullish coalescing operator ??
 // es un operador logico que retornara lo de la derecha si la parte de la izquierda es null o undefined de otra manera retornara lo de la izquierda
 // el caracter 0 indica nulidad en JS
 console.log(0 ?? 'otra cosa')
