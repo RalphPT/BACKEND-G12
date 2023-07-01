@@ -1,5 +1,9 @@
 import express from 'express';
 import Joi from 'joi';
+import swaggerUI from 'swagger-ui-express';
+//import swaggerDoc from './swagger.json'
+//indicar el tipo de informacion que tendremos en nuestra importacion
+import swaggerDoc from './swagger.json' assert {type:'json'};
 
 const servidor = express();
 const productos = [];
@@ -15,6 +19,8 @@ const productoValidator = Joi.object({
 servidor.use(express.json())
 //tipo form-urlencoded (application/form-url-encoded)
 //servidor.use(express.urlencoded())
+
+servidor.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
 
 servidor.get('/inicio', (req, res)=>{
     res.status(200).json({
