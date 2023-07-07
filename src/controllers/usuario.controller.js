@@ -13,9 +13,9 @@ export const registroUsuario = async (req, res)=>{
         })
     }
     
-    await conexion.usuario.create({
-        data: dataValidada.value
-    })
+    // await conexion.usuario.create({
+    //     data: dataValidada.value
+    // })
 
     //genera un texto aleatorio que luego se combinara con mi password y creara el hash de la password
     const salt = await bcrypt.genSalt()
