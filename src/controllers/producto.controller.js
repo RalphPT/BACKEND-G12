@@ -2,16 +2,88 @@ import { conexion } from "../base_de_datos.js";
 import fs from 'fs' // filesync
 import path from 'path'
 import { fileURLToPath } from 'url';
+import S3 from 'aws-sdk/clients/s3.js'
+
+const conexionS3 = new S3({
+    region: process.env.AWS_BUCKET_REGION,
+    credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY,
+        secretAccessKey: process.env.AWS_SECRET_KEY
+    }
+})
+
 
 export const crearProducto = async (req, res) => {
     const { body, file } = req
     console.log(body)
     console.log(file)
 
+    // subir imagen a s3
+    const lecturaArchivo = fs.createReadStream(file.path)
+
+    const resultado = await conexionS3.upload({
+        Bucket: process.env.AWS_BUCKET_NAME, // el bucket al cual subire mi archivo
+        Body: lecturaArchivo, // es el contenido del archivo
+        Key: file.filename //nombre del archivo con el que se guardara en el bucket
+    }).promise()
+
+    await conexion.producto.create({
+        data: {
+            // Agregar el dto del producto para validar la informacion EXCEPTO LA IMAGEN
+
+            precio: +body.precio,
+            disponible: body.disponible === 'true' ? true: false,
+            nombre: body.nombre,
+            imagen: resultado.Key
+        }
+    })
+    // console.log(resultado)
+
     return res.json({
         message: 'Producto creado exitosamente'
     })
 }
+
+export const devolverProducto = async (req, res) => {
+    const { id } = req.params
+
+    try{
+        const productoEncontrado = await conexion.producto.findUniqueOrThrow({ where: { id: +id } })
+        //productoEncontrado.imagen
+        const urlFirmada = conexionS3.getSignedUrl('getObject', {
+            Key: productoEncontrado.imagen,
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Expires: 20 // cuanto durara la url hasta que sea valida
+        })
+
+        conexionS3.deleteObject({
+            Key: '',
+            Bucket: '',
+        })
+        return res.json({
+            content: {...productoEncontrado, imagen: urlFirmada}
+        })
+    }catch (error){
+        if(error instanceof Prisma.PrismaClientKnownRequestError){
+            return res.status(404).json({
+                message: 'El producto no existe'
+            })
+        }
+    }
+}
+
+export const eliminarProducto = async (req, res) =>{
+    // TODO: Eliminar el producto de la base de datos PERO primero eliminarlo del bucket de s3
+    const { id } = req.params
+    // Busquen el producto en la base de datos y obtengan su key
+
+    await conexionS3.deleteObject({
+        Key: '',
+        Bucket: '',
+    }).promise()
+    // Proceder a eliminarlo de la base de datos
+}
+
 
 export const  devolverImagenLocal = async (req, res) => {
     const { nombre } = req.params
