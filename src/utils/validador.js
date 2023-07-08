@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { conexion } from '../base_de_datos.js'
+import { conexion } from '../base_de_datos.js';
 
 export function validarData({error, message, data}){
     // Si hay un error, usaremos el response para responder y terminar el proceso
@@ -12,10 +12,10 @@ export function validarData({error, message, data}){
     }
 }
 
-export async function validarToken (req, res, next) {
+export async function validarToken(req, res, next) {
     // next > si todo esta bien le indicaremos que pase al siguiente middleware / controlador
 
-    if(!req.header.authorization){
+    if (!req.headers.authorization) {
         // 403 > Forbidden
         return res.status(403).json({
             message: 'Se necesita un token para realizar esta peticion'
@@ -23,24 +23,23 @@ export async function validarToken (req, res, next) {
     }
 
     // Bearer xxxxx.xxxxx.xxxxx
-    req.header.authorization.split(' ')[1]
+    const token = req.headers.authorization.split(' ')[1]
 
-    if(!token){
+    if (!token) {
         return res.status(400).json({
             message: 'El formato tiene que ser "Bearer <YOUR_TOKEN>"'
         })
     }
 
-    try{
+    try {
         const payload = jwt.verify(token, process.env.JWT_SECRET)
         const usuario = await conexion.usuario.findUniqueOrThrow({ where: { id: payload.id } })
         // agrego esta propiedad a mi request para que se pueda reutilizar en los otros controladores
         req.user = usuario
 
         // next > pase al siguiente controlador
-
         next()
-    } catch (error){
+    } catch (error) {
         return res.status(403).json({
             message: 'Error en la token',
             content: error.message
