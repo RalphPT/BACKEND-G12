@@ -1,0 +1,32 @@
+docker build --tag <NOMBRE_TAG> ubicacion > construira la imagen descargandose los recursos necesarios
+Ejm: docker build --tag prueba-node .
+docker images > listara las imagenes que tenemos actualmente en nuestro docker
+
+docker tag prueba-node:latest prueba-node:v1.0.0 > agregamos una etiqueta en la ultima version y esto sirve para mantener un historial de imagenes en nuestro docker
+
+para forzar el borrado
+Ejm: docker rmi prueba-node:v1.0.0 --force
+
+
+para correr el server en el 8000
+Ejm: docker run prueba-node
+
+
+docker run --publish PUERTO_EXTERNO:PUERTO_INTERNO NOMBRE_IMAGEN > correr nuestra imagen exponiendo un puerto en particular
+Ejm:docker run --publish 5000:8000
+
+si al run le ponemos --detach o -d hara que se ejecute en segundo plano
+
+docker ps > listara los contenedores > un conjunto de imagenes que se estan ejecutando o no
+docker ps --all
+
+docker restart ID | NAME > reiniciar un contenedor que no esta activo
+
+docker exece --interactive --tty CONTAINER_ID COMAND > sirve para ejecutar un comando 
+
+NOTA: un contenedor puede tener más de una imagen y es el encargado de ejecutar las imagenes
+
+levanta el docker
+docker run --detach -publish 5000:8000 prueba-node
+
+docker-compuse up > levanta nuestras imagenes declaradas en el docker-compose
