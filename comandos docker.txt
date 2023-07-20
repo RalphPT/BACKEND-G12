@@ -21,8 +21,12 @@ docker ps > listara los contenedores > un conjunto de imagenes que se estan ejec
 docker ps --all
 
 docker restart ID | NAME > reiniciar un contenedor que no esta activo
+    
+docker exec --interactive --tty CONTAINER_ID COMAND > sirve para ejecutar un comando 
 
-docker exece --interactive --tty CONTAINER_ID COMAND > sirve para ejecutar un comando 
+docker stop ID_CONTENEDOR | NOMBRE_CONTENEDOR > parar la ejecucion de ese contenedor
+
+docker create --name NOMBRE IMAGEN > crea un contenedor basandose en la imagen y adicional se le coloca
 
 NOTA: un contenedor puede tener más de una imagen y es el encargado de ejecutar las imagenes
 
